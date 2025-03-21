@@ -44,7 +44,7 @@ def process_group(days_to_plot, start_date, folder, known_tags, discard_unit=Non
         
         data = data[data['Pellets'] > 0]
         
-        # Discard specific unit data on a given date
+        # Discard specific unit
         if discard_unit and discard_date and day == discard_date:
             data = data[data['Unit'] != discard_unit]
         
@@ -76,11 +76,11 @@ x_control, mean_control, sem_control = process_group(
     days_to_plot_cntrl, start_date_cntrl, folder_control, known_tags_control, discard_unit=4, discard_date=date(2025, 3, 14)
 )
 
-# Calculate Baseline (first available weight value)
+# Calculate Baseline
 baseline_exp = mean_experimental[0] if not np.isnan(mean_experimental[0]) else np.nan
 baseline_control = mean_control[0] if not np.isnan(mean_control[0]) else np.nan
 
-# Calculate weight change as percentage from baseline
+# Calculate weight change
 def calculate_weight_change(data, baseline):
     return [(val / baseline) * 100 if not np.isnan(val) else np.nan for val in data]
 
